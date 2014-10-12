@@ -22,7 +22,7 @@ else:
     arg = True
     mask, p = sys.argv[1], ''.join(sys.argv[2:])
 
-sep, pt = ' ,' # excel ready
+sep, pt = ';,' # excel ready
 
 print 'Check input:\nMask:   \t' + mask + '\nPattern:\t' + p
 print 'If you see an error here, try to surround mask by quotes.'
@@ -38,7 +38,7 @@ elif prompt == 'c':
     while True:
         print 'Separators settings. Now in use:\n' + \
             '   \'' + sep + '\'+\'' + pt + '\' as row separator + decimal point\n' + \
-            '   \' \'+\',\' is Excel ready. \',\'+\'.\' is default CSV'
+            '   \';\'+\',\' is Excel ready. \',\'+\'.\' is default CSV'
         if raw_input('Want to change them? (1 = yes, <Enter> = no): ') == '1':
             sep, pt = raw_input('Be careful! Two first symbols will be taken,\n' + \
                 'first as column separator, second as decimal point: ')[0:2]
@@ -46,7 +46,7 @@ elif prompt == 'c':
 
 def parse_pattern(pattern, group_sep=',', range_sep=':'):
     result = []
-    groups = pattern.split(group_sep)
+    groups = pattern.strip().replace(' ','').split(group_sep)
     for group in groups:
         if ':' in group:
             parts = map(int, group.split(range_sep))
